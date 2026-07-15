@@ -1,6 +1,6 @@
 # robinhood-trader-skill
 
-A ZCode ACP CLI skill for trading tokens on **Robinhood Chain (4663)** and **Base (8453)** via the [ACP CLI](https://github.com/Virtual-Protocol/acp-cli).
+An ACP CLI skill for trading tokens on **Robinhood Chain (4663)** and **Base (8453)** via the [ACP CLI](https://github.com/Virtual-Protocol/acp-cli).
 
 ## What It Does
 
@@ -8,7 +8,6 @@ A ZCode ACP CLI skill for trading tokens on **Robinhood Chain (4663)** and **Bas
 - **Send** ETH to any wallet on Robinhood Chain
 - **Check balances** on Robinhood Chain and Base
 - **Bridge** tokens cross-chain (Robinhood ↔ Base)
-- Auto-triggers in ZCode when you mention Robinhood Chain, VIRTUAL, PHOOD, USDG, or any swap/bridge/send operation
 
 ## Prerequisites
 
@@ -33,17 +32,7 @@ git clone https://github.com/airplanestar888/robinhood-trader-skill \
   ~/.agents/skills/robinhood-trader
 ```
 
-ZCode will auto-discover the skill on next launch.
-
 ## Usage
-
-### Via ZCode (auto-triggered)
-Just talk naturally:
-```
-swap 1 VIRTUAL to ETH on Robinhood Chain
-check my Robinhood balance
-send 0.003 ETH to 0x2b8b...70f8
-```
 
 ### Via script
 ```bash
@@ -60,6 +49,20 @@ bash scripts/trade.sh swap 0xc6911796042b15d7fa4f6cde69e245ddcd3d9c31 10 0x5fc53
 
 # Send ETH
 bash scripts/trade.sh send 0x2b8b807ff5d3a148ab90aebf4c3368e93ab370f8 0.003
+```
+
+### Via ACP CLI directly
+```bash
+# Check balance
+acp wallet balance --chain-id 4663
+
+# Swap (always dry-run first)
+acp trade --token-in 0xc6911796042b15d7fa4f6cde69e245ddcd3d9c31 --chain-in 4663 \
+  --amount-in 1 --token-out eth --chain-out 4663 --dry-run
+
+# Send ETH
+acp wallet send-transaction --chain-id 4663 \
+  --to <address> --value <amount_in_wei>
 ```
 
 ## Known Working Pairs (Robinhood Chain)
